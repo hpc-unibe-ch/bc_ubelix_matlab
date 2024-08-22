@@ -1,0 +1,113 @@
+---
+cluster: "ubelix"
+attributes:
+  bc_vnc_resolution:
+    required: true
+  email:
+    widget: "text_field"
+    label: "Email"
+    help: |
+      Please provide a valid email address. Without this you will not receive a notification on start.
+  email_on_start:
+    widget: 'check_box'
+    html_options:
+      data:
+        hide-email-when-unchecked: true
+  part:
+    display: true
+    widget: "select"
+    label: "Partition"
+    default: "test"
+    help: |
+      This defines the partition/queue you wish to submit the job to. The default is
+      the interactive CPU partition.
+    options:
+      - [
+          "test", "test",
+          data-min-num-cores: 2,
+          data-max-num-cores: 20,
+          data-hide-type-gpu: true,
+          data-hide-cuda-version: true
+        ]
+  bc_num_hours:
+    widget: "number_field"
+    label: "Time limit in hours."
+    value: 1
+    min: 1
+    step: 1
+    max: 12
+    help: |
+      A maximum of 12 hours are permitted on UBELIX Interactive. The default is 1 hours.
+  num_cores:
+    display: true
+    widget: "number_field"
+    label: "Number of Cores"
+    value: 4
+    min: 2
+    step: 1
+    help: |
+      By default 4 cores will be allocated.
+  memtask:
+    display: true
+    widget: "select"
+    value:  "default"
+    label:  "Memory per Core"
+    help: |
+      **default** 4 GB per core.
+      Select a value to request a different amount per core
+    options:
+      - [ "2 GB/core", "2" ]
+      - [ "4 GB/core", "4" ]
+      - [ "8 GB/core", "8" ]
+      - [ "16 GB/core", "16" ]
+  instance:
+    widget: "select"
+    value: "default"
+    label: "Instance Size"
+    help: |
+      Select the size of Jupyter Lab Instance you would like
+      the options are:
+
+        - small (4 core, 16GB memory)
+        - medium (8 core, 32GB memory)
+        - large (16 core, 64GB memory)
+
+      Alternatively select "Custom" and choose memory and core
+      counts separately.
+    options:
+      - [
+          "Small", "Small",
+          data-hide-num-cores: true,
+          data-hide-memtask: true,
+          data-set-num-cores: 4,
+          data-set-memtask: 4
+        ]
+      - [
+          "Medium", "Medium",
+          data-hide-num-cores: true,
+          data-hide-memtask: true,
+          data-set-num-cores: 8,
+          data-set-memtask: 4
+        ]
+      - [
+          "Large", "Large",
+          data-hide-num-cores: true,
+          data-hide-memtask: true,
+          data-set-num-cores: 16,
+          data-set-memtask: 4
+        ]
+      - [
+          "Custom", "Custom",
+        ]
+form:
+  - auto_accounts
+  - part
+  - auto_qos
+  - bc_num_hours
+  - instance
+  - num_cores
+  - memtask
+  - auto_modules_MATLAB
+  - bc_vnc_resolution
+  - email_on_start
+  - email

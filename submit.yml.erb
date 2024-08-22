@@ -1,0 +1,30 @@
+# Job submission configuration file
+#
+---
+
+#
+# Configure the content of the job script for the batch job here
+# @see http://www.rubydoc.info/gems/ood_core/OodCore/BatchConnect/Template
+#
+batch_connect:
+  template: "vnc"
+
+#
+# Configure the job script submission parameters for the batch job here
+# @see http://www.rubydoc.info/gems/ood_core/OodCore/Job/Script
+#
+script:
+  native:
+    - "-N 1"
+    - "-n <%= bc_num_slots.blank? ? 1 : bc_num_slots.to_i %>"
+    - "--cpus-per-task=<%= num_cores.blank? ? 1 : num_cores.to_i %>"
+    - "--mem-per-cpu=<%= memtask.blank? ? 4 : memtask.to_i %>G"
+    - "--partition=<%= part %>"
+    - "--qos=<%= auto_qos %>"
+    - "--account=<%= auto_accounts %>"
+    - "--time=<%= bc_num_hours.blank? ? 1 : bc_num_hours.to_i %>:00:00"
+    - "--job-name=ood-matlab"
+<%- if email_on_start == "1" and not email.blank? -%>
+    - "--mail-type=BEGIN"
+    - "--mail-user=<%= email %>"
+<%- end -%>
