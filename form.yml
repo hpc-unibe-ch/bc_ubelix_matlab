@@ -23,7 +23,7 @@ attributes:
       the interactive CPU partition.
     options:
       - [
-          "test", "test",
+          "gpu-test", "gpu-test",
           data-min-num-cores: 2,
           data-max-num-cores: 20,
           data-hide-type-gpu: true,
